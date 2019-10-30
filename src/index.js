@@ -1,2 +1,2 @@
 
-console.log('Duong Dieu Phap :)');
+console.log(`Duong Dieu Phap :) ${123}`);
