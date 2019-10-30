@@ -2,7 +2,14 @@
   <div>
     My App.vue comp
 
-    <FileSelector />
+    <FileSelector
+      accept-extensions=".zip"
+      :height="300"
+      @validate="validate"
+      @change="change"
+    >
+      hahahah
+    </FileSelector>
   </div>
 </template>
 
@@ -13,6 +20,16 @@ export default {
   name: 'App',
   components: {
     FileSelector,
+  },
+
+  methods: {
+    validate(result, files) {
+      console.log('Validation result: ' + result);
+    },
+
+    change(files) {
+      console.log('Selected files: ', files);
+    },
   },
 };
 </script>

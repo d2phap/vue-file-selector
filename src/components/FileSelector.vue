@@ -1,32 +1,195 @@
 <template>
-  <div class="bold">
-    hello
-    <div class="italic">
-      {{ value }}
+  <div class="fs-file-selector">
+    <div class="fs-loader" v-if="isLoading">
+      <slot name="loader">
+        Loading...
+      </slot>
+    </div>
+    
+    <div class="fs-droppable"
+      ref="fsDroppable"
+      :class="{ 'fs-drag-enter': isDragEnter }"
+      :style="{ height: height + 'px' }"
+      @dragenter.stop.prevent="isDragEnter = true"
+      @dragover.stop.prevent="() => {}"
+      @dragleave.stop.prevent="isDragEnter = false"
+      @drop.stop.prevent="handleDrop">
+      <input
+        ref="fsFileInput"
+        type="file"
+        tabindex="-1"
+        :multiple="multiple"
+        :accept="acceptExtensions"
+        @change="handleFilesChange"
+      />
+      <slot name="top"></slot>
+
+      <div href="#" class="fs-btn-select" @click="$refs.fsFileInput.click()">
+        <slot>Select</slot>
+      </div>
+
+      <slot name="bottom"></slot>
     </div>
   </div>
 </template>
 
+
 <script>
 export default {
+  props: {
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
+
+    isLoading: {
+      type: Boolean,
+      default: false,
+    },
+
+    acceptExtensions: {
+      type: String,
+      default: '',
+    },
+
+    maxFileSize: { // in bytes
+      type: Number,
+      default: NaN,
+    },
+
+    height: {
+      type: Number,
+      default: NaN,
+    },
+
+    validateFn: {
+      type: Function,
+      default: () => true,
+    },
+  },
+
   data() {
     return {
-      value: 10,
+      isDragEnter: false,
     };
   },
 
-  create() {
-    console.log('created');
+  methods: {
+    handleFilesChange($event) {
+      this.preprocessFiles($event.target.files);
+    },
+
+    handleDrop($event) {
+      this.isDragEnter = false;
+      this.preprocessFiles($event.dataTransfer.files);
+    },
+
+    checkFileExtensions(files) {
+      // get non-empty, unique extension items
+      const extList = [...new Set(
+        this.acceptExtensions.toLowerCase()
+          .split(',')
+          .filter(Boolean)
+      )];
+      const list = Array.from(files);
+
+      // check if the selected files are in supported extensions
+      const invalidFileIndex = list.findIndex(file => {
+        const ext = `.${file.name.toLowerCase().split('.').pop()}`;
+
+        return !extList.includes(ext);
+      });
+
+      // all exts are valid
+      return invalidFileIndex === -1;
+    },
+
+    checkFileSize(files) {
+      if (Number.isNaN(this.maxFileSize)) {
+        return true;
+      }
+
+      const list = Array.from(files);
+
+      // find invalid file size
+      const invalidFileIndex = list.findIndex(file => file.size > this.maxFileSize);
+
+      // all file size are valid
+      return invalidFileIndex === -1;
+    },
+
+    validate(files) {
+      // file selection
+      if (!this.multiple && files.length > 1) {
+        return 'MULTIFILES_ERROR';
+      }
+
+      // extension
+      if (!this.checkFileExtensions(files)) {
+        return 'EXTENSION_ERROR';
+      }
+
+      // file size
+      if (!this.checkFileSize(files)) {
+        return 'FILE_SIZE_ERROR';
+      }
+
+      // custom validation
+      return this.validateFn(files);
+    },
+
+    preprocessFiles(files) {
+      const result = this.validate(files);
+      this.$emit('validate', result, files);
+
+      // validation
+      if (result === true) {
+        this.$emit('change', files);
+      }
+
+      // clear selected files
+      this.$refs.fsFileInput.value = '';
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.bold {
-  font-weight: 800;
 
-  .italic {
-    font-style: italic;
+<style lang="scss" scoped>
+.fs-file-selector {
+  position: relative;
+
+  .fs-loader {
+    background: rgba(#fff, 0.8);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .fs-droppable {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    text-align: center;
+    border-radius: 8px;
+    border: 1px dashed #000;
+
+    input[type="file"] {
+      visibility: hidden;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+    }
   }
 }
 </style>
