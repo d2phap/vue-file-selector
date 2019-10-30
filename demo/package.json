@@ -1,8 +1,8 @@
 {
-  "name": "vue-file-selector",
+  "name": "vue-file-selector-demo",
   "version": "0.0.1",
-  "description": "File selector component that supports drag-n-drop for VueJs",
-  "main": "dist/index.js",
+  "description": "File selector demo",
+  "main": "index.js",
   "scripts": {
     "start": "webpack --watch --config ./webpack.config.js --progress --hide-modules --mode=development",
     "build": "webpack --config ./webpack.config.js --progress --hide-modules --mode=production"
@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/d2phap/vue-file-selector/issues"
   },
-  "homepage": "https://github.com/d2phap/vue-file-selector",
+  "homepage": "https://github.com/d2phap/vue-file-selector#readme",
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",

@@ -1,9 +1,16 @@
-import Vue from 'vue';
-import App from './App.vue';
+import component from './component.vue'
 
-new Vue({
-  el: '#app',
-  render: h => h(App)
-})
+const Plugin = {
+  component,
 
-console.log(`Duong Dieu Phap :) ${123}`);
+  install(Vue) {
+    if (this.installed) {
+      return;
+    }
+
+    Vue.component(component.name, component);
+    this.installed = true;
+  }
+}
+
+export default Plugin;

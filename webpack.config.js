@@ -1,5 +1,13 @@
 const path = require('path');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+
+var pjson = require('./package.json');
+
+const copyright = `Vue File selector v${pjson.version}
+(c) 2019 ${pjson.author}
+${pjson.homepage}
+Released under the ${pjson.license} License.`;
 
 module.exports = {
   entry: './src/index.js',
@@ -7,6 +15,9 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
     filename: 'index.js',
+
+    library: 'vue-file-selector',
+    libraryTarget: 'umd',
   },
   module: {
     rules: [
@@ -24,5 +35,6 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new webpack.BannerPlugin(copyright),
   ],
 };

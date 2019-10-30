@@ -2,26 +2,21 @@
   <div>
     My App.vue comp
 
-    <FileSelector
+    <file-selector
       accept-extensions=".zip"
       :height="300"
       @validate="validate"
       @change="change"
     >
       hahahah
-    </FileSelector>
+    </file-selector>
   </div>
 </template>
 
-<script>
-import FileSelector from './components/FileSelector.vue';
 
+<script>
 export default {
   name: 'App',
-  components: {
-    FileSelector,
-  },
-
   methods: {
     validate(result, files) {
       console.log('Validation result: ' + result);

@@ -36,6 +36,8 @@
 
 <script>
 export default {
+  name: 'FileSelector',
+
   props: {
     multiple: {
       type: Boolean,
