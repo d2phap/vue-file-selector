@@ -4,7 +4,7 @@
   "description": "File selector component that supports drag-n-drop for VueJs",
   "main": "dist/index.js",
   "scripts": {
-    "start": "webpack --config ./webpack.config.js --progress --hide-modules --mode=development",
+    "start": "webpack --watch --config ./webpack.config.js --progress --hide-modules --mode=development",
     "build": "webpack --config ./webpack.config.js --progress --hide-modules --mode=production"
   },
   "repository": {
@@ -31,7 +31,16 @@
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "vue-loader": "^15.7.1",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {
+    "vue": "^2.6.10"
   }
 }
