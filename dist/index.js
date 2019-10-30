@@ -1,5 +1,5 @@
 /*!
- * Vue File selector v0.0.1
+ * Vue File selector v0.0.2
  * (c) 2019 Duong Dieu Phap
  * https://github.com/d2phap/vue-file-selector
  * Released under the MIT License.
