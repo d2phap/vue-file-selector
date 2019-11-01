@@ -142,11 +142,11 @@ export default {
 
     preprocessFiles(files) {
       const result = this.validate(files);
-      this.$emit('validate', result, files);
+      this.$emit('validated', result, files);
 
       // validation
       if (result === true) {
-        this.$emit('change', files);
+        this.$emit('changed', files);
       }
 
       // clear selected files

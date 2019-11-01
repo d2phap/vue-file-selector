@@ -3,10 +3,10 @@
     My App.vue comp
 
     <file-selector
-      accept-extensions=".zip"
+      accept-extensions=".jpg"
       :height="300"
-      @validate="validate"
-      @change="change"
+      @validated="handleFilesValidated"
+      @changed="handleFilesChanged"
     >
       hahahah
     </file-selector>
@@ -18,12 +18,13 @@
 export default {
   name: 'App',
   methods: {
-    validate(result, files) {
-      console.log('Validation result: ' + result);
+    handleFilesValidated(result, files) {
+      console.log('Validation result: ', result);
     },
 
-    change(files) {
-      console.log('Selected files: ', files);
+    handleFilesChanged(files) {
+      console.log('Selected files: ');
+      console.table(files);
     },
   },
 };
