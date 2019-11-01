@@ -1,4 +1,6 @@
 # Vue File selector
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector?ref=badge_shield)
+
 File selector component that supports drag-n-drop for Vuejs.
 
 ##  Install
@@ -104,3 +106,7 @@ List of error codes returned after validation.
 | `EXTENSION_ERROR` | The selected files contain invalid extensions. |
 | `FILE_SIZE_ERROR` | The selected files size exceeded limit. |
 | `MULTIFILES_ERROR` | Multiple files selection is not allowed. |
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector?ref=badge_large)
