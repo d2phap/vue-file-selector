@@ -65,7 +65,7 @@ export default {
 
 
 ## Props
-| Name | Type | Default | Description |
+|       Name       | Type | Default | Description |
 | -- | -- | -- | -- |
 | `multiple` | `Boolean` | `false` | Allow multiple files selected. |
 | `is-loading` | `Boolean` | `false` | Show or hide the loading section (slot: `loader`). |
@@ -78,6 +78,7 @@ export default {
 ## Events
 ### 1. `@validated`
 Occurs after the selected files validated.
+
 ```js
 Function(result: String | Boolean, files: FileList): void
 ```
@@ -88,6 +89,7 @@ Function(result: String | Boolean, files: FileList): void
 
 ### 2. `@changed`
 Occurs if the selected files pass validation.
+
 ```js
 Function(files: FileList): void
 ```
@@ -96,6 +98,7 @@ Function(files: FileList): void
 
 ## Error codes
 List of error codes returned after validation.
+
 | Code | Error description |
 | -- | -- |
 | `EXTENSION_ERROR` | The selected files contain invalid extensions. |
