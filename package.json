@@ -1,6 +1,6 @@
 {
   "name": "vue-file-selector",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "File selector component that supports drag-n-drop for VueJs",
   "main": "dist/index.js",
   "scripts": {
