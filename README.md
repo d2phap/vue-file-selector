@@ -60,19 +60,19 @@ export default {
 | -- | -- | -- |
 | `default` | `Select` | Content of the `Select` button. |
 | `loader` | `Loading...` | Content of loading state. |
-| `top` | | Top section content, above the `Select` button. |
-| `bottom` | | Bottom section content, below the `Select` button. |
+| `top` | ` ` | Top section content, above the `Select` button. |
+| `bottom` | ` ` | Bottom section content, below the `Select` button. |
 
 
 ## Props
 |       Name       | Type | Default | Description |
 | -- | -- | -- | -- |
 | `multiple` | `Boolean` | `false` | Allow multiple files selected. |
-| `is-loading` | `Boolean` | `false` | Show or hide the loading section (slot: `loader`). |
-| `accept-extensions` | `String` | ` ` | List of file extensions accepted. Each extension separated by a comma (`,`). E.g. `accept-extensions=".zip,.rar"`. |
-| `max-file-size` | `Number` | `NaN` | Maximum **size in byte** of every single file allowed. E.g. `:max-file-size="2*1024*1024"` (only the files that ≤2 MB are allowed). |
+| `isLoading` | `Boolean` | `false` | Show or hide the loading section (slot: `loader`). |
+| `acceptExtensions` | `String` | ` ` | List of file extensions accepted. Each extension separated by a comma (`,`). E.g. `accept-extensions=".zip,.rar"`. |
+| `maxFileSize` | `Number` | `NaN` | Maximum **size in byte** of every single file allowed. E.g. `:max-file-size="2*1024*1024"` (only the files that ≤2 MB are allowed). |
 | `height` | `Number` | `NaN` | The height of droppable section. |
-| `validate-fn` | `Function -> Boolean` | `() => true` | A custom validation function that returns boolean value. |
+| `validateFn` | `Function -> Boolean` | `() => true` | A custom validation function that returns boolean value. |
 
 
 ## Events
