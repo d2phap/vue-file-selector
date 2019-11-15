@@ -367,7 +367,7 @@
       function (module, __webpack_exports__, __webpack_require__) {
         "use strict";
 
-        eval("__webpack_require__.r(__webpack_exports__);\nfunction _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }\n\nfunction _nonIterableSpread() { throw new TypeError(\"Invalid attempt to spread non-iterable instance\"); }\n\nfunction _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === \"[object Arguments]\") return Array.from(iter); }\n\nfunction _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }\n\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: 'FileSelector',\n  props: {\n    multiple: {\n      type: Boolean,\n      \"default\": false\n    },\n    isLoading: {\n      type: Boolean,\n      \"default\": false\n    },\n    acceptExtensions: {\n      type: String,\n      \"default\": ''\n    },\n    maxFileSize: {\n      // in bytes\n      type: Number,\n      \"default\": NaN\n    },\n    height: {\n      type: Number,\n      \"default\": NaN\n    },\n    validateFn: {\n      type: Function,\n      \"default\": function _default() {\n        return true;\n      }\n    }\n  },\n  data: function data() {\n    return {\n      isDragEnter: false\n    };\n  },\n  methods: {\n    handleFilesChange: function handleFilesChange($event) {\n      this.preprocessFiles($event.target.files);\n    },\n    handleDrop: function handleDrop($event) {\n      this.isDragEnter = false;\n      this.preprocessFiles($event.dataTransfer.files);\n    },\n    checkFileExtensions: function checkFileExtensions(files) {\n      // get non-empty, unique extension items\n      var extList = _toConsumableArray(new Set(this.acceptExtensions.toLowerCase().split(',').filter(Boolean)));\n\n      var list = Array.from(files); // check if the selected files are in supported extensions\n\n      var invalidFileIndex = list.findIndex(function (file) {\n        var ext = \".\".concat(file.name.toLowerCase().split('.').pop());\n        return !extList.includes(ext);\n      }); // all exts are valid\n\n      return invalidFileIndex === -1;\n    },\n    checkFileSize: function checkFileSize(files) {\n      var _this = this;\n\n      if (Number.isNaN(this.maxFileSize)) {\n        return true;\n      }\n\n      var list = Array.from(files); // find invalid file size\n\n      var invalidFileIndex = list.findIndex(function (file) {\n        return file.size > _this.maxFileSize;\n      }); // all file size are valid\n\n      return invalidFileIndex === -1;\n    },\n    validate: function validate(files) {\n      // file selection\n      if (!this.multiple && files.length > 1) {\n        return 'MULTIFILES_ERROR';\n      } // extension\n\n\n      if (!this.checkFileExtensions(files)) {\n        return 'EXTENSION_ERROR';\n      } // file size\n\n\n      if (!this.checkFileSize(files)) {\n        return 'FILE_SIZE_ERROR';\n      } // custom validation\n\n\n      return this.validateFn(files);\n    },\n    preprocessFiles: function preprocessFiles(files) {\n      var result = this.validate(files);\n      this.$emit('validated', result, files); // validation\n\n      if (result === true) {\n        this.$emit('changed', files);\n      } // clear selected files\n\n\n      this.$refs.fsFileInput.value = '';\n    }\n  }\n});\n\n//# sourceURL=webpack://vue-file-selector/./src/component.vue?./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options");
+        eval("__webpack_require__.r(__webpack_exports__);\nfunction _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }\n\nfunction _nonIterableSpread() { throw new TypeError(\"Invalid attempt to spread non-iterable instance\"); }\n\nfunction _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === \"[object Arguments]\") return Array.from(iter); }\n\nfunction _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }\n\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: 'FileSelector',\n  props: {\n    multiple: {\n      type: Boolean,\n      \"default\": false\n    },\n    isLoading: {\n      type: Boolean,\n      \"default\": false\n    },\n    acceptExtensions: {\n      type: String,\n      \"default\": ''\n    },\n    maxFileSize: {\n      // in bytes\n      type: Number,\n      \"default\": NaN\n    },\n    height: {\n      type: Number,\n      \"default\": NaN\n    },\n    validateFn: {\n      type: Function,\n      \"default\": function _default() {\n        return true;\n      }\n    }\n  },\n  data: function data() {\n    return {\n      isDragEnter: false\n    };\n  },\n  methods: {\n    handleFilesChange: function handleFilesChange($event) {\n      this.preprocessFiles($event.target.files);\n    },\n    handleDrop: function handleDrop($event) {\n      this.isDragEnter = false;\n      this.preprocessFiles($event.dataTransfer.files);\n    },\n    checkFileExtensions: function checkFileExtensions(files) {\n      // get non-empty, unique extension items\n      var extList = _toConsumableArray(new Set(this.acceptExtensions.toLowerCase().split(',').filter(Boolean)));\n\n      var list = Array.from(files); // check if the selected files are in supported extensions\n\n      var invalidFileIndex = list.findIndex(function (file) {\n        var ext = \".\".concat(file.name.toLowerCase().split('.').pop());\n        return !extList.includes(ext);\n      }); // all exts are valid\n\n      return invalidFileIndex === -1;\n    },\n    checkFileSize: function checkFileSize(files) {\n      var _this = this;\n\n      if (Number.isNaN(this.maxFileSize)) {\n        return true;\n      }\n\n      var list = Array.from(files); // find invalid file size\n\n      var invalidFileIndex = list.findIndex(function (file) {\n        return file.size > _this.maxFileSize;\n      }); // all file size are valid\n\n      return invalidFileIndex === -1;\n    },\n    validate: function validate(files) {\n      // file selection\n      if (!this.multiple && files.length > 1) {\n        return 'MULTIFILES_ERROR';\n      } // extension\n\n\n      if (!this.checkFileExtensions(files)) {\n        return 'EXTENSION_ERROR';\n      } // file size\n\n\n      if (!this.checkFileSize(files)) {\n        return 'FILE_SIZE_ERROR';\n      } // custom validation\n\n\n      return this.validateFn(files);\n    },\n    preprocessFiles: function preprocessFiles(files) {\n      var result = this.validate(files);\n      this.$emit('validated', result, files); // validation\n\n      if (result === true) {\n        this.$emit('changed', files);\n      } // clear selected files\n\n\n      this.$refs.fsFileInput.value = '';\n    }\n  }\n});\n\n//# sourceURL=webpack://vue-file-selector/./src/component.vue?./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options");
         /***/
       },
 
@@ -381,7 +381,7 @@
 
       /***/
       function (module, exports, __webpack_require__) {
-        eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \".fs-file-selector[data-v-a8ea6a18] {\\n  position: relative;\\n}\\n.fs-file-selector .fs-loader[data-v-a8ea6a18] {\\n    background: rgba(255, 255, 255, 0.8);\\n    position: absolute;\\n    top: 0;\\n    bottom: 0;\\n    left: 0;\\n    right: 0;\\n    z-index: 1;\\n    display: flex;\\n    justify-content: center;\\n    align-items: center;\\n}\\n.fs-file-selector .fs-droppable[data-v-a8ea6a18] {\\n    display: flex;\\n    flex-direction: column;\\n    align-items: center;\\n    justify-content: center;\\n    position: relative;\\n    text-align: center;\\n    border-radius: 8px;\\n    border: 1px dashed #000;\\n}\\n.fs-file-selector .fs-droppable input[type=\\\"file\\\"][data-v-a8ea6a18] {\\n      visibility: hidden;\\n      position: absolute;\\n      width: 1px;\\n      height: 1px;\\n}\\n\", \"\"]);\n\n\n//# sourceURL=webpack://vue-file-selector/./src/component.vue?./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib??vue-loader-options");
+        eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \".fs-file-selector[data-v-a8ea6a18] {\\n  position: relative;\\n}\\n.fs-file-selector .fs-loader[data-v-a8ea6a18] {\\n    position: absolute;\\n    top: 0;\\n    bottom: 0;\\n    left: 0;\\n    right: 0;\\n    z-index: 1;\\n    display: flex;\\n    justify-content: center;\\n    align-items: center;\\n}\\n.fs-file-selector .fs-droppable[data-v-a8ea6a18] {\\n    display: flex;\\n    flex-direction: column;\\n    align-items: center;\\n    justify-content: center;\\n    position: relative;\\n}\\n.fs-file-selector .fs-droppable input[type=\\\"file\\\"][data-v-a8ea6a18] {\\n      visibility: hidden;\\n      position: absolute;\\n      width: 1px;\\n      height: 1px;\\n}\\n\", \"\"]);\n\n\n//# sourceURL=webpack://vue-file-selector/./src/component.vue?./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib??vue-loader-options");
         /***/
       },
 
@@ -413,7 +413,7 @@
       function (module, __webpack_exports__, __webpack_require__) {
         "use strict";
 
-        eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function() {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\"div\", { staticClass: \"fs-file-selector\" }, [\n    _vm.isLoading\n      ? _c(\n          \"div\",\n          { staticClass: \"fs-loader\" },\n          [_vm._t(\"loader\", [_vm._v(\"\\n      Loading...\\n    \")])],\n          2\n        )\n      : _vm._e(),\n    _vm._v(\" \"),\n    _c(\n      \"div\",\n      {\n        ref: \"fsDroppable\",\n        staticClass: \"fs-droppable\",\n        class: { \"fs-drag-enter\": _vm.isDragEnter },\n        style: { height: _vm.height + \"px\" },\n        on: {\n          dragenter: function($event) {\n            $event.stopPropagation()\n            $event.preventDefault()\n            _vm.isDragEnter = true\n          },\n          dragover: function($event) {\n            $event.stopPropagation()\n            $event.preventDefault()\n            return (function() {})($event)\n          },\n          dragleave: function($event) {\n            $event.stopPropagation()\n            $event.preventDefault()\n            _vm.isDragEnter = false\n          },\n          drop: function($event) {\n            $event.stopPropagation()\n            $event.preventDefault()\n            return _vm.handleDrop($event)\n          }\n        }\n      },\n      [\n        _c(\"input\", {\n          ref: \"fsFileInput\",\n          attrs: {\n            type: \"file\",\n            tabindex: \"-1\",\n            multiple: _vm.multiple,\n            accept: _vm.acceptExtensions\n          },\n          on: { change: _vm.handleFilesChange }\n        }),\n        _vm._v(\" \"),\n        _vm._t(\"top\"),\n        _vm._v(\" \"),\n        _c(\n          \"div\",\n          {\n            staticClass: \"fs-btn-select\",\n            attrs: { href: \"#\" },\n            on: {\n              click: function($event) {\n                return _vm.$refs.fsFileInput.click()\n              }\n            }\n          },\n          [_vm._t(\"default\", [_vm._v(\"Select\")])],\n          2\n        ),\n        _vm._v(\" \"),\n        _vm._t(\"bottom\")\n      ],\n      2\n    )\n  ])\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n\n\n//# sourceURL=webpack://vue-file-selector/./src/component.vue?./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options");
+        eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function() {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\n    \"div\",\n    {\n      staticClass: \"fs-file-selector\",\n      class: { \"fs-drag-enter\": _vm.isDragEnter }\n    },\n    [\n      _c(\n        \"div\",\n        {\n          directives: [\n            {\n              name: \"show\",\n              rawName: \"v-show\",\n              value: _vm.isLoading,\n              expression: \"isLoading\"\n            }\n          ],\n          staticClass: \"fs-loader\"\n        },\n        [_vm._t(\"loader\", [_vm._v(\"\\n      Loading...\\n    \")])],\n        2\n      ),\n      _vm._v(\" \"),\n      _c(\n        \"div\",\n        {\n          ref: \"fsDroppable\",\n          staticClass: \"fs-droppable\",\n          style: { height: _vm.height + \"px\" },\n          on: {\n            dragenter: function($event) {\n              $event.stopPropagation()\n              $event.preventDefault()\n              _vm.isDragEnter = true\n            },\n            dragover: function($event) {\n              $event.stopPropagation()\n              $event.preventDefault()\n              return (function() {})($event)\n            },\n            dragleave: function($event) {\n              $event.stopPropagation()\n              $event.preventDefault()\n              _vm.isDragEnter = false\n            },\n            drop: function($event) {\n              $event.stopPropagation()\n              $event.preventDefault()\n              return _vm.handleDrop($event)\n            }\n          }\n        },\n        [\n          _c(\"input\", {\n            ref: \"fsFileInput\",\n            attrs: {\n              type: \"file\",\n              tabindex: \"-1\",\n              multiple: _vm.multiple,\n              accept: _vm.acceptExtensions\n            },\n            on: { change: _vm.handleFilesChange }\n          }),\n          _vm._v(\" \"),\n          _vm._t(\"top\"),\n          _vm._v(\" \"),\n          _c(\n            \"div\",\n            {\n              staticClass: \"fs-btn-select\",\n              attrs: { href: \"#\" },\n              on: {\n                click: function($event) {\n                  return _vm.$refs.fsFileInput.click()\n                }\n              }\n            },\n            [_vm._t(\"default\", [_vm._v(\"Select\")])],\n            2\n          ),\n          _vm._v(\" \"),\n          _vm._t(\"bottom\")\n        ],\n        2\n      )\n    ]\n  )\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n\n\n//# sourceURL=webpack://vue-file-selector/./src/component.vue?./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options");
         /***/
       },
 
@@ -605,16 +605,71 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
+  data: () => ({
+    isLoading: false,
+    gallery: []
+  }),
   methods: {
     handleFilesValidated(result, files) {
       console.log('Validation result: ', result);
     },
 
-    handleFilesChanged(files) {
-      console.log('Selected files: ');
-      console.table(files);
+    async handleFilesChanged(files) {
+      this.isLoading = true; // console.log('Selected files: ');
+      // console.table(files);
+
+      const list = Array.from(files);
+
+      for (const file of list) {
+        const img = await this.loadImgAsDataUrl(file);
+        this.gallery.push({
+          name: file.name,
+          size: file.size,
+          src: img
+        });
+      }
+
+      this.isLoading = false;
+    },
+
+    async loadImgAsDataUrl(file) {
+      const url = await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = e => resolve(e.target.result);
+      });
+      return url;
+    },
+
+    formatNumber(num) {
+      return new Intl.NumberFormat('en', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(num);
     }
 
   }
@@ -631,7 +686,7 @@ __webpack_require__.r(__webpack_exports__);
 
 exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "html, body {\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n  font-size: 1rem;\n  box-sizing: border-box;\n  line-height: normal;\n}\nbody {\n  padding: 2rem;\n}\nbody p {\n    margin-top: 0;\n}\nbody a, body a:visited {\n    color: #820084;\n}\n.fs-file-selector .fs-droppable {\n  background-color: rgba(130, 0, 132, 0.05);\n  border-color: #820084 !important;\n  border-width: 2px !important;\n  border-radius: 1px !important;\n  transition: all ease 300ms;\n}\n.fs-file-selector .fs-droppable.fs-drag-enter {\n    transition: all ease 100ms;\n    background-color: rgba(130, 0, 132, 0.1);\n    border-style: solid;\n    box-shadow: inset 0 0 0 2px #820084;\n    transform: scale(0.99);\n}\n.fs-file-selector .fs-btn-select {\n  background-color: #820084;\n  padding: 0.75rem 2rem;\n  color: #fff;\n  border-radius: 1px;\n  transition: all ease 200ms;\n}\n.fs-file-selector .fs-btn-select:hover {\n    cursor: pointer;\n    background-color: #960098;\n}\n.fs-file-selector .fs-btn-select:active {\n    background-color: #6d006f;\n    transform: scale(0.95);\n    transition: all ease 60ms;\n}\n.section-top {\n  margin-bottom: 2rem;\n  color: #6f6f6f;\n  font-size: 0.875rem;\n}\n.section-bottom {\n  margin-top: 2rem;\n  color: #6f6f6f;\n  font-size: 0.875rem;\n}\n", ""]);
+exports.push([module.i, "html, body {\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n  font-size: 1rem;\n  box-sizing: border-box;\n  line-height: normal;\n}\nbody {\n  padding: 2rem;\n}\nbody p {\n    margin-top: 0;\n}\nbody a, body a:visited {\n    color: #008484;\n}\n.fs-file-selector {\n  user-select: none;\n  position: sticky !important;\n  top: -2px;\n  text-align: center;\n  background-color: rgba(0, 132, 132, 0.05);\n  backdrop-filter: blur(35px) saturate(200%);\n  border-top: 2px solid #008484;\n  border-bottom: 2px solid #008484;\n  transition: all ease 300ms;\n}\n.fs-file-selector .fs-droppable {\n    padding: 2rem 0;\n    transition: all ease 200ms;\n}\n.fs-file-selector .fs-btn-select {\n    background-color: #008484;\n    padding: 0.75rem 2rem;\n    color: #fff;\n    border-radius: 1px;\n    transition: all ease 200ms;\n}\n.fs-file-selector .fs-btn-select:hover {\n      cursor: pointer;\n      background-color: #009e9e;\n}\n.fs-file-selector .fs-btn-select:active {\n      background-color: #006b6b;\n      transform: scale(0.95);\n      transition: all ease 60ms;\n}\n.fs-file-selector .fs-loader {\n    background-color: transparent !important;\n}\n.fs-file-selector.fs-drag-enter {\n    background-color: rgba(0, 132, 132, 0.1);\n}\n.fs-file-selector.fs-drag-enter .fs-droppable {\n      transition: all ease 100ms;\n      transform: scale(0.98);\n}\n.section-top {\n  margin-bottom: 2rem;\n  color: #6f6f6f;\n  font-size: 0.875rem;\n}\n.section-bottom {\n  margin-top: 2rem;\n  color: #6f6f6f;\n  font-size: 0.875rem;\n}\n.section-loader {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all ease 300ms;\n  background-color: rgba(255, 255, 255, 0.9);\n  backdrop-filter: blur(20px);\n}\n.gallery {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(6, 1fr);\n  grid-column-gap: 1rem;\n  grid-row-gap: 1rem;\n}\n.gallery .gallery-item {\n    height: 150px;\n    overflow: hidden;\n    display: grid;\n    grid-template-rows: 1fr min-content;\n    align-items: center;\n    justify-content: center;\n    background-size: contain;\n    background-position: center;\n    background-repeat: no-repeat;\n    background-color: rgba(0, 132, 132, 0.05);\n}\n.gallery .gallery-item .img {\n      width: 100%;\n      height: 100%;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n}\n.gallery .gallery-item .img img {\n        max-width: 100%;\n        max-height: 100%;\n}\n.gallery .gallery-item .img-info {\n      margin: 1rem 0;\n      overflow: hidden;\n      text-align: center;\n}\n.gallery .gallery-item .img-info .img-name {\n        white-space: nowrap;\n        text-overflow: ellipsis;\n        font-size: 0.875rem;\n        max-width: 100%;\n        overflow: hidden;\n        padding: 0 1rem;\n}\n.gallery .gallery-item .img-info .img-size {\n        font-size: 0.75rem;\n        color: #6f6f6f;\n        text-align: center;\n        padding: 0 1rem;\n}\n", ""]);
 
 
 /***/ }),
@@ -1228,8 +1283,9 @@ var render = function() {
         {
           attrs: {
             "accept-extensions": ".jpg,.svg",
-            height: 300,
-            "max-file-size": 2 * 1024 * 1024
+            multiple: true,
+            "is-loading": _vm.isLoading,
+            "max-file-size": 5 * 1024 * 1024
           },
           on: {
             validated: _vm.handleFilesValidated,
@@ -1237,7 +1293,7 @@ var render = function() {
           }
         },
         [
-          _vm._v("\n    Select\n\n    "),
+          _vm._v("\n    Select image files\n\n    "),
           _c(
             "div",
             { staticClass: "section-top", attrs: { slot: "top" }, slot: "top" },
@@ -1247,7 +1303,7 @@ var render = function() {
                   "\n        You can click the below button or drop files into this area.\n      "
                 )
               ]),
-              _vm._v("\n      Max file size allowed: 2 MB."),
+              _vm._v("\n      Max file size allowed: 5 MB."),
               _c("br"),
               _vm._v("\n      File extensions: JPG, SVG.\n    ")
             ]
@@ -1273,9 +1329,50 @@ var render = function() {
                 [_vm._v("\n        Duong Dieu Phap\n      ")]
               )
             ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "section-loader",
+              attrs: { slot: "loader" },
+              slot: "loader"
+            },
+            [
+              _vm._v("\n      Processing files"),
+              _c("br"),
+              _vm._v("\n      please wait...\n    ")
+            ]
           )
         ]
-      )
+      ),
+      _vm._v(" "),
+      _vm.gallery.length
+        ? _c(
+            "div",
+            { staticClass: "gallery" },
+            _vm._l(_vm.gallery, function(img, index) {
+              return _c("div", { key: index, staticClass: "gallery-item" }, [
+                _c("div", { staticClass: "img" }, [
+                  _c("img", { attrs: { src: img.src } })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "img-info" }, [
+                  _c(
+                    "div",
+                    { staticClass: "img-name", attrs: { title: img.name } },
+                    [_vm._v(_vm._s(img.name))]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "img-size" }, [
+                    _vm._v(_vm._s(_vm.formatNumber(img.size)) + " bytes")
+                  ])
+                ])
+              ])
+            }),
+            0
+          )
+        : _vm._e()
     ],
     1
   )

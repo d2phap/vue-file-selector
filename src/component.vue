@@ -1,6 +1,8 @@
 <template>
-  <div class="fs-file-selector">
-    <div class="fs-loader" v-if="isLoading">
+  <div class="fs-file-selector"
+    :class="{ 'fs-drag-enter': isDragEnter }"
+  >
+    <div class="fs-loader" v-show="isLoading">
       <slot name="loader">
         Loading...
       </slot>
@@ -8,7 +10,6 @@
     
     <div class="fs-droppable"
       ref="fsDroppable"
-      :class="{ 'fs-drag-enter': isDragEnter }"
       :style="{ height: height + 'px' }"
       @dragenter.stop.prevent="isDragEnter = true"
       @dragover.stop.prevent="() => {}"
@@ -162,7 +163,6 @@ export default {
   position: relative;
 
   .fs-loader {
-    background: rgba(#fff, 0.8);
     position: absolute;
     top: 0;
     bottom: 0;
@@ -181,10 +181,6 @@ export default {
     align-items: center;
     justify-content: center;
     position: relative;
-
-    text-align: center;
-    border-radius: 8px;
-    border: 1px dashed #000;
 
     input[type="file"] {
       visibility: hidden;
