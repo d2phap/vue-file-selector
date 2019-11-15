@@ -3,10 +3,14 @@
 
 File selector with validation that supports drag-n-drop for Vuejs.
 
+![Vue File selector](https://github.com/d2phap/vue-file-selector/raw/master/demo/public/screenshot.jpg)
+
+
 ### Other open source projects
 - `ImageGlass` - A lightweight, versatile image viewer: https://imageglass.org
 - `Fluent Reveal Effect Js` (Fluent Design System): https://github.com/d2phap/fluent-reveal-effect
 - `FileWatcherEx` - A wrapper of C# FileSystemWatcher for Windows: https://github.com/d2phap/FileWatcherEx
+
 
 ##  Install
 Run the command
