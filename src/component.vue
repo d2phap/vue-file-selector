@@ -189,5 +189,18 @@ export default {
       height: 1px;
     }
   }
+
+  &.fs-drag-enter {
+    // to prevent dragleave event triggered while user dragging over child items
+    .fs-droppable::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999999;
+    }
+  }
 }
 </style>

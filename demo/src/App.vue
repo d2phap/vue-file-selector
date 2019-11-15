@@ -1,5 +1,9 @@
 <template>
   <div>
+    <a class="btn-back" href="https://github.com/d2phap/vue-file-selector" target="_blank">
+      Back to Github
+    </a>
+
     <file-selector
       accept-extensions=".jpg,.svg"
       :multiple="true"
@@ -114,7 +118,9 @@ html, body {
 }
 
 body {
+  margin: 0;
   padding: 2rem;
+  padding-top: 0;
 
   p {
     margin-top: 0;
@@ -126,6 +132,7 @@ body {
 }
 
 .fs-file-selector {
+  margin-top: 1rem;
   user-select: none;
   position: sticky !important;
   top: -2px;
@@ -175,7 +182,14 @@ body {
 }
 
 
-
+.btn-back {
+  display: inline-block;
+  padding: 1rem 0;
+  position: sticky;
+  top: 1rem;
+  z-index: 10;
+  font-weight: 600;
+}
 
 .section-top {
   margin-bottom: 2rem;
@@ -200,7 +214,7 @@ body {
 .gallery {
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
 
