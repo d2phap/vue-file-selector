@@ -1,7 +1,12 @@
 # Vue File selector
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector?ref=badge_shield)
 
-File selector component that supports drag-n-drop for Vuejs.
+File selector with validation that supports drag-n-drop for Vuejs.
+
+### Other open source projects
+- `ImageGlass` - A lightweight, versatile image viewer: https://imageglass.org
+- `Fluent Reveal Effect Js` (Fluent Design System): https://github.com/d2phap/fluent-reveal-effect
+- `FileWatcherEx` - A wrapper of C# FileSystemWatcher for Windows: https://github.com/d2phap/FileWatcherEx
 
 ##  Install
 Run the command
@@ -30,12 +35,13 @@ Vue.use(FileSelector);
 <template>
   <div>
     <file-selector
-      accept-extensions=".jpg"
-      :height="300"
+      accept-extensions=".jpg,.svg"
+      :multiple="true"
+      :max-file-size="5 * 1024 * 1024"
       @validated="handleFilesValidated"
       @changed="handleFilesChanged"
     >
-      hahahah
+      Select image files
     </file-selector>
   </div>
 </template>
@@ -62,16 +68,16 @@ export default {
 | -- | -- | -- |
 | `default` | `Select` | Content of the `Select` button. |
 | `loader` | `Loading...` | Content of loading state. |
-| `top` | ` ` | Top section content, above the `Select` button. |
-| `bottom` | ` ` | Bottom section content, below the `Select` button. |
+| `top` | `(empty)` | Top section content, above the `Select` button. |
+| `bottom` | `(empty)` | Bottom section content, below the `Select` button. |
 
 
 ## Props
-|       Name       | Type | Default | Description |
+| Name | Type | Default | Description |
 | -- | -- | -- | -- |
 | `multiple` | `Boolean` | `false` | Allow multiple files selected. |
 | `isLoading` | `Boolean` | `false` | Show or hide the loading section (slot: `loader`). |
-| `acceptExtensions` | `String` | ` ` | List of file extensions accepted. Each extension separated by a comma (`,`). E.g. `accept-extensions=".zip,.rar"`. |
+| `acceptExtensions` | `String` | `(empty)` | List of file extensions accepted. Each extension separated by a comma (`,`). E.g. `accept-extensions=".zip,.rar"`. |
 | `maxFileSize` | `Number` | `NaN` | Maximum **size in byte** of every single file allowed. E.g. `:max-file-size="2*1024*1024"` (only the files that ≤2 MB are allowed). |
 | `height` | `Number` | `NaN` | The height of droppable section. |
 | `validateFn` | `Function -> Boolean` | `() => true` | A custom validation function that returns boolean value. |
@@ -86,7 +92,7 @@ Function(result: String | Boolean, files: FileList): void
 ```
 - `result`: validation result, 
   + returns `true` if the file validation is valid, else
-  + returns `false` or [Error codes](#error-codes).
+  + returns `false` or [Error codes (`string`)](#error-codes).
 - `files`: list of files validated.
 
 ### 2. `@changed`
@@ -110,3 +116,4 @@ List of error codes returned after validation.
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector?ref=badge_large)
+
