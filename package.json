@@ -1,11 +1,15 @@
 {
   "name": "vue-file-selector",
-  "version": "0.6.0",
-  "description": "File selector component that supports drag-n-drop for VueJs",
+  "version": "1.0.0",
+  "description": "File selector component that supports drag-n-drop for VueJs 3",
+  "private": true,
   "main": "dist/index.js",
+  "types": "dist/main.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "start": "webpack --watch --config ./webpack.config.js --progress --hide-modules --mode=development",
-    "build": "webpack --config ./webpack.config.js --progress --hide-modules --mode=production"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -27,20 +31,18 @@
     "url": "https://github.com/d2phap/vue-file-selector/issues"
   },
   "homepage": "https://github.com/d2phap/vue-file-selector",
-  "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
-    "babel-loader": "^8.0.6",
-    "css-loader": "^3.2.0",
-    "node-sass": "^7.0.0",
-    "sass-loader": "^8.0.0",
-    "vue-loader": "^15.7.1",
-    "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
+  "peerDependencies": {
+    "vue": "^3.2.37"
   },
-  "dependencies": {
-    "vue": "^2.6.10"
+  "devDependencies": {
+    "rollup": "^2.75.6",
+    "rollup-plugin-banner": "^0.2.1",
+    "rollup-plugin-clear": "^2.0.7",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-node-externals": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.32.1",
+    "rollup-plugin-vue": "^6.0.0",
+    "typescript": "^4.7.3"
   }
 }
