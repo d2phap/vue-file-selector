@@ -4,8 +4,10 @@ import clear from 'rollup-plugin-clear';
 import externals from 'rollup-plugin-node-externals';
 import copy from 'rollup-plugin-copy';
 import { terser } from 'rollup-plugin-terser';
-import banner from 'rollup-plugin-banner';
+import banner2 from 'rollup-plugin-banner2';
 import styles from 'rollup-plugin-styles';
+
+const pjson = require('./package.json');
 
 const isProduction = (process.env.NODE_ENV === 'production');
 console.log(`${ isProduction ? 'production' : 'development' } mode bundle`);
@@ -69,8 +71,14 @@ export default async function config(args) {
         ],
       }),
 
-      banner(`<%= pkg.name%> v<%= pkg.version %> by <%= pkg.author %>
-Homepage: <%= pkg.homepage %>`),
+      banner2(() => `/**
+ * ${pjson.name} v${pjson.version} by ${pjson.author}
+ * Homepage: ${pjson.homepage}
+ */
+
+`, {
+        sourcemap: true,
+      }),
     ],
   };
 };
