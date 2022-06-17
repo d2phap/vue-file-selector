@@ -5,6 +5,7 @@ import externals from 'rollup-plugin-node-externals';
 import copy from 'rollup-plugin-copy';
 import { terser } from 'rollup-plugin-terser';
 import banner from 'rollup-plugin-banner';
+import styles from 'rollup-plugin-styles';
 
 const isProduction = (process.env.NODE_ENV === 'production');
 console.log(`${ isProduction ? 'production' : 'development' } mode bundle`);
@@ -17,9 +18,16 @@ export default async function config(args) {
       format: 'cjs',
       sourcemap: true,
       exports: 'named',
+
+      assetFileNames: '[name][extname]',
     },
     plugins: [
       vue(),
+
+      styles({
+        minimize: true,
+        mode: ['extract', 'main.css'],
+      }),
 
       typescript({
         tsconfigOverride: {

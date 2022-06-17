@@ -1,7 +1,8 @@
+import './main.scss';
 
 import { App, Plugin } from 'vue';
-
 import component from './FileSelector.vue';
+
 export * from './types';
 
 const FileSelector: Plugin = {

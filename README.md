@@ -27,6 +27,9 @@ Please see [Demo project](https://github.com/d2phap/vue-file-selector/tree/maste
 
 ### Declare the plugin
 ```js
+// import main css
+import 'vue-file-selector/main.css';
+
 // import the library
 import FileSelector from 'vue-file-selector';
 
