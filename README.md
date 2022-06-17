@@ -3,7 +3,7 @@
 
 File selector with validation that supports drag-n-drop for Vuejs.
 
-![Vue File selector](https://github.com/d2phap/vue-file-selector/raw/master/demo/public/screenshot.jpg)
+![Vue File selector](https://github.com/d2phap/vue-file-selector/raw/main/demo/public/screenshot.jpg)
 
 
 ### Other open source projects
@@ -23,7 +23,7 @@ NPM package: https://www.npmjs.com/package/vue-file-selector
 Github source: https://github.com/d2phap/vue-file-selector
 
 ## Usage
-Please see [Demo project](https://github.com/d2phap/vue-file-selector/tree/master/demo) for full example.
+Please see [Demo project](https://github.com/d2phap/vue-file-selector/tree/main/demo) for full example.
 
 ### Declare the plugin
 ```js
