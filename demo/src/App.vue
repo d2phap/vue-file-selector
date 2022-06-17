@@ -1,117 +1,119 @@
 <template>
-  <div>
-    <a class="btn-back" href="https://github.com/d2phap/vue-file-selector" target="_blank">
-      Back to Github
-    </a>
+  <FileSelector
+    accept-extensions=".jpg,.svg"
+    :multiple="true"
+    :is-loading="isLoading"
+    :max-file-size="5 * 1024 * 1024"
+    @validated="handleFilesValidated"
+    @changed="handleFilesChanged">
+    Select image files
 
-    <file-selector
-      accept-extensions=".jpg,.svg"
-      :multiple="true"
-      :is-loading="isLoading"
-      :max-file-size="5 * 1024 * 1024"
-      @validated="handleFilesValidated"
-      @changed="handleFilesChanged"
-    >
-      Select image files
-
-      <div slot="top" class="section-top">
+    <template #top>
+      <div class="section-top">
         <p>
           You can click the below button or drop files into this area.
         </p>
         Max file size allowed: 5 MB.<br/>
         File extensions: JPG, SVG.
       </div>
+    </template>
 
-      <div slot="bottom" class="section-bottom">
+    <template #bottom>
+      <div class="section-bottom">
         A project of
         <a href="https://imageglass.org/about" target="_blank">
           Duong Dieu Phap
         </a>
       </div>
+    </template>
 
-      <div slot="loader" class="section-loader">
+    <template #loader>
+      <div class="section-loader">
         Processing files<br/>
         please wait...
       </div>
-    </file-selector>
+    </template>
+  </FileSelector>
 
-
-    <div class="gallery" v-if="gallery.length">
-      <div
-        v-for="(img, index) in gallery"
-        class="gallery-item"
-        :key="index"
-      >
-        <div class="img"><img :src="img.src"></div>
-        <div class="img-info">
-          <div class="img-name" :title="img.name">{{ img.name }}</div>
-          <div class="img-size">{{ formatNumber(img.size) }} bytes</div>
-        </div>
+  <div class="gallery" v-if="gallery.length">
+    <div
+      v-for="(img, index) in gallery"
+      class="gallery-item"
+      :key="index">
+      <div class="img">
+        <img :src="img.src" alt="">
+      </div>
+      <div class="img-info">
+        <div class="img-name" :title="img.name">{{ img.name }}</div>
+        <div class="img-size">{{ formatNumber(img.size) }} bytes</div>
       </div>
     </div>
   </div>
 </template>
 
 
-<script>
-export default {
-  name: 'App',
-  data: () => ({
-    isLoading: false,
-    gallery: [],
-  }),
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import { FsValidationResult } from 'vue-file-selector/dist';
 
-  methods: {
-    handleFilesValidated(result, files) {
-      console.log('Validation result: ', result);
-    },
+@Options({})
+export default class App extends Vue {
+  private isLoading = false;
+  private gallery: {
+    name: string;
+    size: number;
+    src: string;
+  }[] = [];
 
-    async handleFilesChanged(files) {
-      this.isLoading = true;
-      // console.log('Selected files: ');
-      // console.table(files);
+  handleFilesValidated(result: FsValidationResult, files: File[]) {
+    console.log('Validation result: ', result, files);
+  }
 
-      const list = Array.from(files);
+  async handleFilesChanged(files: File[]) {
+    this.isLoading = true;
+    // console.log('Selected files: ');
+    // console.table(files);
 
-      for (const file of list) {
-        const img = await this.loadImgAsDataUrl(file);
-        this.gallery.push({
-          name: file.name,
-          size: file.size,
-          src: img,
-        });
-      }
+    const promiseArr = files.map(f => this.loadImgAsDataUrl(f));
+    const imgs = await Promise.all(promiseArr);
 
-      this.isLoading = false;
-    },
+    this.gallery = imgs.map((img, index) => ({
+      name: files[index].name,
+      size: files[index].size,
+      src: img,
+    }));
 
-    async loadImgAsDataUrl(file) {
-      const url = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (e) => resolve(e.target.result);
-      });
+    this.isLoading = false;
+  }
 
-      return url;
-    },
+  async loadImgAsDataUrl(file: File) {
+    const url: string = await new Promise((resolve) => {
+      const reader = new FileReader();
 
-    formatNumber(num) {
-      return new Intl.NumberFormat('en', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      }).format(num);
-    },
-  },
-};
+      reader.readAsDataURL(file);
+      reader.onload = (e) => resolve(e.target?.result as string);
+    });
+
+    return url || '';
+  }
+
+  formatNumber(num: number) {
+    return new Intl.NumberFormat('en', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(num);
+  }
+}
 </script>
 
 
 <style lang="scss">
+
 $primColor: #008484;
 $secTextColor: #6f6f6f;
 
 html, body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 1rem;
   box-sizing: border-box;
   line-height: normal;
@@ -152,7 +154,7 @@ body {
     background-color: $primColor;
     padding: 0.75rem 2rem;
     color: #fff;
-    border-radius: 1px;
+    border-radius: 5px;
     transition: all ease 200ms;
 
     &:hover {
@@ -181,16 +183,6 @@ body {
   }
 }
 
-
-.btn-back {
-  display: inline-block;
-  padding: 1rem 0;
-  position: sticky;
-  top: 1rem;
-  z-index: 10;
-  font-weight: 600;
-}
-
 .section-top {
   margin-bottom: 2rem;
   color: $secTextColor;
@@ -211,25 +203,29 @@ body {
   background-color: rgba(#fff, 0.9);
   backdrop-filter: blur(20px);
 }
+
 .gallery {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 -0.5rem;
   margin-top: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
 
   .gallery-item {
-    height: 150px;
+    height: 180px;
+    width: 180px;
+    margin: 0 0.5rem 1rem 0.5rem;
+
     overflow: hidden;
     display: grid;
-    grid-template-rows: 1fr min-content;
+    grid-template-rows: 70% 30%;
     align-items: center;
     justify-content: center;
 
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: rgba($primColor, 0.05);
+    border-radius: 5px;
+    background-size: cover;
+    background-color: rgba($primColor, 0.2);
 
     .img {
       width: 100%;
@@ -239,13 +235,14 @@ body {
       justify-content: center;
 
       img {
-        max-width: 100%;
-        max-height: 100%;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
       }
     }
 
     .img-info {
-      margin: 1rem 0;
+      padding: 0.5rem 0;
       overflow: hidden;
       text-align: center;
 
@@ -255,7 +252,7 @@ body {
         font-size: 0.875rem;
         max-width: 100%;
         overflow: hidden;
-        padding: 0 1rem;
+        padding: 0 0.5rem;
       }
 
       .img-size {

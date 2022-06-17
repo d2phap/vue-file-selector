@@ -1,9 +1,9 @@
-# Vue File selector for Vuejs 3
+# Vue File selector
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector?ref=badge_shield)
 
 File selector with validation that supports drag-n-drop for Vuejs.
 
-![Vue File selector](https://github.com/d2phap/vue-file-selector/raw/main/demo/public/screenshot.jpg)
+![Vue File selector](https://github.com/d2phap/vue-file-selector/raw/master/demo/public/screenshot.jpg)
 
 
 ### Other open source projects
@@ -23,60 +23,50 @@ NPM package: https://www.npmjs.com/package/vue-file-selector
 Github source: https://github.com/d2phap/vue-file-selector
 
 ## Usage
-Please see [Demo project](https://github.com/d2phap/vue-file-selector/tree/main/demo) for full example.
+Please see [Demo project](https://github.com/d2phap/vue-file-selector/tree/master/demo) for full example.
 
 ### Declare the plugin
 ```js
-// in main.ts
+// import main css
+import 'vue-file-selector/main.css';
 
-import { createApp } from 'vue';
-
-// import FileSelector main css
-import 'vue-file-selector/dist/main.css';
-
-// import the FileSelector plugin
+// import the library
 import FileSelector from 'vue-file-selector';
 
-
-import App from './App.vue';
-
-createApp(App)
-
-  // then use it!
-  .use(FileSelector)
-  .mount('#app');
+// then use it!
+Vue.use(FileSelector);
 ```
 
 ### Use in Vue file
 ```html
 <template>
   <div>
-    <FileSelector
+    <file-selector
       accept-extensions=".jpg,.svg"
       :multiple="true"
       :max-file-size="5 * 1024 * 1024"
       @validated="handleFilesValidated"
-      @changed="handleFilesChanged">
+      @changed="handleFilesChanged"
+    >
       Select image files
-    </FileSelector>
+    </file-selector>
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { FsValidationResult } from 'vue-file-selector/dist';
+<script>
+export default {
+  name: 'App',
+  methods: {
+    handleFilesValidated(result, files) {
+      console.log('Validation result: ' + result);
+    },
 
-@Options({})
-export default class App extends Vue {
-  handleFilesValidated(result: FsValidationResult, files: File[]) {
-    console.log('Validation result: ' + result);
+    handleFilesChanged(files) {
+      console.log('Selected files: ');
+      console.table(files);
+    },
   },
-
-  handleFilesChanged(files: File[]) {
-    console.log('Selected files: ');
-    console.table(files);
-  },
-}
+};
 </script>
 ```
 
@@ -92,12 +82,12 @@ export default class App extends Vue {
 ## Props
 | Name | Type | Default | Description |
 | -- | -- | -- | -- |
-| `multiple` | `boolean` | `false` | Allow multiple files selected. |
-| `isLoading` | `boolean` | `false` | Show or hide the loading section (slot: `loader`). |
-| `acceptExtensions` | `string` | `(empty)` | List of file extensions accepted. Each extension separated by a comma (`,`). E.g. `accept-extensions=".zip,.rar"`. |
-| `maxFileSize` | `number` | `NaN` | Maximum **size in byte** of every single file allowed. E.g. `:max-file-size="2*1024*1024"` (only the files that ≤2 MB are allowed). |
-| `height` | `number` | `NaN` | The height of droppable section. |
-| `validateFn` | `FsValidateFn` | `() => true` | A custom validation function that returns boolean value. |
+| `multiple` | `Boolean` | `false` | Allow multiple files selected. |
+| `isLoading` | `Boolean` | `false` | Show or hide the loading section (slot: `loader`). |
+| `acceptExtensions` | `String` | `(empty)` | List of file extensions accepted. Each extension separated by a comma (`,`). E.g. `accept-extensions=".zip,.rar"`. |
+| `maxFileSize` | `Number` | `NaN` | Maximum **size in byte** of every single file allowed. E.g. `:max-file-size="2*1024*1024"` (only the files that ≤2 MB are allowed). |
+| `height` | `Number` | `NaN` | The height of droppable section. |
+| `validateFn` | `Function -> Boolean` | `() => true` | A custom validation function that returns boolean value. |
 
 
 ## Events
@@ -105,7 +95,7 @@ export default class App extends Vue {
 Occurs after the selected files validated.
 
 ```js
-Function(result: FsValidationResult, files: File[]): void
+Function(result: String | Boolean, files: FileList): void
 ```
 - `result`: validation result, 
   + returns `true` if the file validation is valid, else
@@ -116,13 +106,13 @@ Function(result: FsValidationResult, files: File[]): void
 Occurs if the selected files pass validation.
 
 ```js
-Function(files: File[]): void
+Function(files: FileList): void
 ```
 - `files`: list of files validated.
 
 
 ## Error codes
-List of error codes returned after validation, see `FsValidationResult`.
+List of error codes returned after validation.
 
 | Code | Error description |
 | -- | -- |
