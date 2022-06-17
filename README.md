@@ -1,4 +1,4 @@
-# Vue File selector
+# Vue File selector for Vuejs 3
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fd2phap%2Fvue-file-selector?ref=badge_shield)
 
 File selector with validation that supports drag-n-drop for Vuejs.
@@ -27,46 +27,56 @@ Please see [Demo project](https://github.com/d2phap/vue-file-selector/tree/maste
 
 ### Declare the plugin
 ```js
-// import main css
-import 'vue-file-selector/main.css';
+// in main.ts
 
-// import the library
+import { createApp } from 'vue';
+
+// import FileSelector main css
+import 'vue-file-selector/dist/main.css';
+
+// import the FileSelector plugin
 import FileSelector from 'vue-file-selector';
 
-// then use it!
-Vue.use(FileSelector);
+
+import App from './App.vue';
+
+createApp(App)
+
+  // then use it!
+  .use(FileSelector)
+  .mount('#app');
 ```
 
 ### Use in Vue file
 ```html
 <template>
   <div>
-    <file-selector
+    <FileSelector
       accept-extensions=".jpg,.svg"
       :multiple="true"
       :max-file-size="5 * 1024 * 1024"
       @validated="handleFilesValidated"
-      @changed="handleFilesChanged"
-    >
+      @changed="handleFilesChanged">
       Select image files
-    </file-selector>
+    </FileSelector>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'App',
-  methods: {
-    handleFilesValidated(result, files) {
-      console.log('Validation result: ' + result);
-    },
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import { FsValidationResult } from 'vue-file-selector/dist';
 
-    handleFilesChanged(files) {
-      console.log('Selected files: ');
-      console.table(files);
-    },
+@Options({})
+export default class App extends Vue {
+  handleFilesValidated(result: FsValidationResult, files: File[]) {
+    console.log('Validation result: ' + result);
   },
-};
+
+  handleFilesChanged(files: File[]) {
+    console.log('Selected files: ');
+    console.table(files);
+  },
+}
 </script>
 ```
 
@@ -82,12 +92,12 @@ export default {
 ## Props
 | Name | Type | Default | Description |
 | -- | -- | -- | -- |
-| `multiple` | `Boolean` | `false` | Allow multiple files selected. |
-| `isLoading` | `Boolean` | `false` | Show or hide the loading section (slot: `loader`). |
-| `acceptExtensions` | `String` | `(empty)` | List of file extensions accepted. Each extension separated by a comma (`,`). E.g. `accept-extensions=".zip,.rar"`. |
-| `maxFileSize` | `Number` | `NaN` | Maximum **size in byte** of every single file allowed. E.g. `:max-file-size="2*1024*1024"` (only the files that ≤2 MB are allowed). |
-| `height` | `Number` | `NaN` | The height of droppable section. |
-| `validateFn` | `Function -> Boolean` | `() => true` | A custom validation function that returns boolean value. |
+| `multiple` | `boolean` | `false` | Allow multiple files selected. |
+| `isLoading` | `boolean` | `false` | Show or hide the loading section (slot: `loader`). |
+| `acceptExtensions` | `string` | `(empty)` | List of file extensions accepted. Each extension separated by a comma (`,`). E.g. `accept-extensions=".zip,.rar"`. |
+| `maxFileSize` | `number` | `NaN` | Maximum **size in byte** of every single file allowed. E.g. `:max-file-size="2*1024*1024"` (only the files that ≤2 MB are allowed). |
+| `height` | `number` | `NaN` | The height of droppable section. |
+| `validateFn` | `FsValidateFn` | `() => true` | A custom validation function that returns boolean value. |
 
 
 ## Events
@@ -95,7 +105,7 @@ export default {
 Occurs after the selected files validated.
 
 ```js
-Function(result: String | Boolean, files: FileList): void
+Function(result: FsValidationResult, files: File[]): void
 ```
 - `result`: validation result, 
   + returns `true` if the file validation is valid, else
@@ -106,13 +116,13 @@ Function(result: String | Boolean, files: FileList): void
 Occurs if the selected files pass validation.
 
 ```js
-Function(files: FileList): void
+Function(files: File[]): void
 ```
 - `files`: list of files validated.
 
 
 ## Error codes
-List of error codes returned after validation.
+List of error codes returned after validation, see `FsValidationResult`.
 
 | Code | Error description |
 | -- | -- |

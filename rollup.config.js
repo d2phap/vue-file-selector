@@ -2,7 +2,6 @@ import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 import clear from 'rollup-plugin-clear';
 import externals from 'rollup-plugin-node-externals';
-import copy from 'rollup-plugin-copy';
 import { terser } from 'rollup-plugin-terser';
 import banner2 from 'rollup-plugin-banner2';
 import styles from 'rollup-plugin-styles';
@@ -60,15 +59,6 @@ export default async function config(args) {
           drop_debugger: isProduction,
         },
         output: { quote_style: 1 },
-      }),
-
-      copy({
-        targets: [
-          {
-            src: ['./LICENSE', './README.md'],
-            dest: './dist',
-          },
-        ],
       }),
 
       banner2(() => `/**

@@ -1,5 +1,5 @@
 /**
- * vue-file-selector v1.0.0 by Duong Dieu Phap
+ * vue-file-selector v2.0.0 by Duong Dieu Phap
  * Homepage: https://github.com/d2phap/vue-file-selector
  */
 
